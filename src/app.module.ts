@@ -1,23 +1,16 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
-import { SupabaseModule } from './supabase/supabase.module';
-import { ProductsModule } from './products/products.module';
-import { CategoriesModule } from './categories/categories.module';
-import { SellersModule } from './sellers/sellers.module';
-import { TransactionsModule } from './transactions/transactions.module';
+import { HealthController } from './modules/health/health.controller';
+import { DatabaseModule } from './modules/database/database.module';
 
 @Module({
   imports: [
-    ConfigModule.forRoot(),
-    SupabaseModule,
-    ProductsModule,
-    CategoriesModule,
-    SellersModule,
-    TransactionsModule,
+    ConfigModule.forRoot({
+      isGlobal: true,
+      envFilePath: '.env',
+    }),
+    DatabaseModule,
   ],
-  controllers: [AppController],
-  providers: [AppService],
+  controllers: [HealthController],
 })
 export class AppModule {}
