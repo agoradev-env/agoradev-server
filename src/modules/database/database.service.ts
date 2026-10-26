@@ -144,7 +144,7 @@ export class DatabaseService implements OnModuleInit {
    */
   private ensureConnected() {
     if (!this.supabase) {
-      throw new Error('Database not connected. Please set SUPABASE_URL and SUPABASE_ANON_KEY in your .env file.');
+      throw new Error('Database not connected. Please set SUPABASE_URL and SUPABASE_KEY in your .env file.');
     }
   }
 
