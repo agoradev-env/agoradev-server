@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Sign In</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+            background: #f5f6f8;
+            font-family: Arial, sans-serif;
+            color: #202124;
+        }
+
+        .login-card {
+            width: 100%;
+            max-width: 420px;
+            padding: 36px;
+            background: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+        }
+
+        h1 {
+            margin: 0 0 8px;
+            font-size: 25px;
+        }
+
+        .subtitle {
+            margin: 0 0 28px;
+            color: #666;
+            font-size: 14px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        input {
+            width: 100%;
+            padding: 13px;
+            margin-bottom: 20px;
+            border: 1px solid #d5d8dc;
+            border-radius: 6px;
+            font-size: 15px;
+        }
+
+        input:focus {
+            outline: 2px solid #5a3318;
+            border-color: #5a3318;
+        }
+
+        button {
+            width: 100%;
+            padding: 14px;
+            border: none;
+            border-radius: 6px;
+            background: #5a3318;
+            color: #ffffff;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        button:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        #login-message {
+            display: none;
+            margin-top: 18px;
+            padding: 12px;
+            border-radius: 6px;
+            background: #feecec;
+            color: #b42318;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+    </style>
+</head>
+
+<body>
+    <main class="login-card">
+        <h1>Sign in</h1>
+
+        <p class="subtitle">
+            Sign in to access the internal monitoring dashboard.
+        </p>
+
+        <form id="login-form">
+            <label for="email">Email address</label>
+            <input
+                type="email"
+                id="email"
+                name="email"
+                autocomplete="username"
+                required
+            >
+
+            <label for="password">Password</label>
+            <input
+                type="password"
+                id="password"
+                name="password"
+                autocomplete="current-password"
+                required
+            >
+
+            <button type="submit" id="login-button">
+                Sign in
+            </button>
+        </form>
+
+        <div id="login-message" role="alert"></div>
+    </main>
+
+    <script>
+        const form = document.getElementById("login-form");
+        const message = document.getElementById("login-message");
+        const button = document.getElementById("login-button");
+
+        form.addEventListener("submit", async (event) => {
+            event.preventDefault();
+
+            message.style.display = "none";
+            button.disabled = true;
+            button.textContent = "Signing in...";
+
+            try {
+                const response = await fetch("/api/dashboard/login", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({
+                        email: document.getElementById("email").value,
+                        password: document.getElementById("password").value
+                    })
+                });
+
+                const data = await response.json();
+
+                if (response.status === 403) {
+                    window.location.href = "/monitoring/access-denied";
+                    return;
+                }
+
+                if (!response.ok) {
+                    throw new Error(
+                        data.message || "Unable to sign in."
+                    );
+                }
+
+                window.location.href = "/monitoring/";
+
+            } catch (error) {
+                message.textContent = error.message;
+                message.style.display = "block";
+            } finally {
+                button.disabled = false;
+                button.textContent = "Sign in";
+            }
+        });
+    </script>
+</body>
+</html>

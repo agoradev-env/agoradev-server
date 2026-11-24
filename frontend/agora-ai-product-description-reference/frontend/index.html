@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agora AI Product Description Generator</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <main class="container">
+        <h1>AI Product Description Generator</h1>
+        <p class="subtitle">
+            Enter your product information to generate a description.
+        </p>
+
+        <form id="productForm">
+
+            <button type="button" id="newProductButton" class="secondary-button">
+                + New Product
+            </button>
+
+            <label for="productName">Product Name</label>
+            <input
+                type="text"
+                id="productName"
+                placeholder="e.g. Leather sandals"
+                required
+            >
+
+            <label for="productCategory">Product Category</label>
+            <input
+                type="text"
+                id="productCategory"
+                placeholder="e.g. Shoes"
+                required
+            >
+
+            <div class="details-heading">
+                <div>
+                    <label>Product Details</label>
+                    <p>Add individual details about your product.</p>
+                </div>
+            </div>
+
+            <div id="detailsContainer">
+                <div class="detail-row">
+                    <input
+                        type="text"
+                        class="detail-name"
+                        placeholder="Detail name (e.g. Material)"
+                    >
+                    <input
+                        type="text"
+                        class="detail-value"
+                        placeholder="Value (e.g. Genuine leather)"
+                    >
+                </div>
+            </div>
+
+            <button type="button" id="addDetailButton" class="add-button">
+                + Add another detail
+            </button>
+
+            <button type="submit" id="generateButton">
+                Generate Description
+            </button>
+
+            <p class="usage-hint">
+                Each product has up to 3 AI description generation attempts.
+            </p>
+
+        </form>
+
+        <section id="resultSection">
+            <label for="generatedDescription">Generated Description</label>
+
+            <p id="attemptsRemaining" class="usage-hint">
+                3 AI attempts remaining for this product.
+            </p>
+
+            <textarea
+                id="generatedDescription"
+                rows="6"
+                placeholder="Your generated description will appear here..."
+            ></textarea>
+
+            <p class="manual-edit-hint">
+                You can edit the generated description manually at any time.
+                Regenerating uses one of your remaining AI attempts.
+            </p>
+
+            <div id="reviewControls" class="review-controls" hidden>
+                <button type="button" id="regenerateButton" class="secondary-button">
+                    Regenerate Description
+                </button>
+
+                <button type="button" id="acceptButton" class="accept-button">
+                    Accept Description
+                </button>
+            </div>
+
+            <p id="reviewStatus" aria-live="polite"></p>
+        </section>
+
+
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>

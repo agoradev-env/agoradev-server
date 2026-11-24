@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agora AI Usage Monitor</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="dashboard">
+        <header class="dashboard-header">
+            <div>
+                <h1>AI Usage Monitor</h1>
+                <p>Agora Marketplace · AI Operations</p>
+            </div>
+            <span id="system-status">Monitoring Prototype</span>
+        </header>
+
+        <section class="summary-cards">
+            <article class="card">
+                <h3>Total Requests</h3>
+                <p id="total-requests">0</p>
+            </article>
+            <article class="card">
+                <h3>Successful Requests</h3>
+                <p id="successful-requests">0</p>
+            </article>
+            <article class="card">
+                <h3>Failed Requests</h3>
+                <p id="failed-requests">0</p>
+            </article>
+            <article class="card">
+                <h3>Total Tokens</h3>
+                <p id="total-tokens">0</p>
+            </article>
+            <article class="card">
+                <h3>Average Response Time</h3>
+                <p id="average-response-time">0 ms</p>
+            </article>
+        </section>
+
+        <section class="card budget-section">
+            <h2>Monthly AI Spending</h2>
+            <div class="budget-details">
+                <span>Estimated spending: <strong id="total-spending">$0.00</strong></span>
+                <span>Monthly budget: <strong id="monthly-budget">$0.00</strong></span>
+            </div>
+            <div class="progress-track">
+                <div id="budget-progress" class="progress-fill"></div>
+            </div>
+            <p id="budget-alert">No usage recorded yet.</p>
+        </section>
+
+        <section class="card expandable-card">
+            <details>
+                <summary class="expandable-heading">
+                    <span>
+                        <h2>AI Model Usage</h2>
+                        <small>View usage and performance by AI model</small>
+                    </span>
+                    <span class="expand-icon">＋</span>
+                </summary>
+
+                <div style="margin: 15px 0;">
+                    <label for="provider-filter">AI Provider: </label>
+                    <select id="provider-filter">
+                        <option value="all">All Providers</option>
+                    </select>
+                </div>
+
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Model</th>
+                                <th>Requests</th>
+                                <th>Tokens</th>
+                                <th>Spending</th>
+                                <th>Failures</th>
+                            </tr>
+                        </thead>
+                        <tbody id="model-usage-table">
+                            <tr>
+                                <td colspan="5">No model usage records yet.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </details>
+        </section>
+
+        <section class="card usage-activity">
+            <h2>Usage Activity</h2>
+
+            <div class="activity-overview">
+                <div class="activity-summary">
+                    <span class="activity-label">Successful Requests</span>
+                    <strong id="success-count">0</strong>
+                </div>
+
+                <div class="activity-summary">
+                    <span class="activity-label">Failed Requests</span>
+                    <strong id="failed-count">0</strong>
+                </div>
+            </div>
+
+            <a href="activity.html" class="view-activity-link">
+                View Activity →
+         </a>
+        </section>
+
+        <section class="card">
+            <h2>Monitoring Alerts</h2>
+            <div id="alerts-list">
+                <p>No alerts at the moment.</p>
+            </div>
+        </section>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
